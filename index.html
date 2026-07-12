@@ -30,12 +30,17 @@
             scroll-behavior: smooth;
         }
 
+        html {
+            scroll-padding-top: 140px;
+        }
+
         body {
             background-color: var(--bg-dark);
             color: var(--text-main);
             font-family: 'Montserrat', sans-serif;
             overflow-x: hidden;
             line-height: 1.6;
+            scroll-padding-top: 90px;
         }
 
         /* Ambient Glow System */
@@ -193,6 +198,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            scroll-margin-top: 140px;
         }
 
         .reveal {
@@ -296,7 +302,7 @@
         .browser-mockup { background: #1e1b29; border: 1px solid var(--glass-border); border-radius: 16px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.6); position: relative; display: flex; flex-direction: column; min-height: 520px; }
         .browser-header { background: #14121f; padding: 0.6rem 0.9rem; display: flex; align-items: center; gap: 0.5rem; border-bottom: 1px solid var(--glass-border); }
         .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.15); }
-        .browser-content { padding: 0.75rem; display:flex; justify-content:center; align-items:center; height: 100%; }
+        .browser-content { padding: 0.75rem; display:flex; justify-content:center; align-items:center; height: auto; min-height: 0; }
         
         /* New Stacked modifier for multiple videos */
         .browser-content.stacked { flex-direction: column; gap: 1.5rem; padding: 1.5rem; }
@@ -336,7 +342,7 @@
 }
 
 
-        .work-video-wrapper { width: 100%; max-width: 960px; background: #000; border-radius: 8px; overflow: hidden; position: relative; aspect-ratio: 16/9; height: 100%; }
+        .work-video-wrapper { width: 100%; max-width: 960px; background: #000; border-radius: 8px; overflow: hidden; position: relative; aspect-ratio: 16/9; height: auto; min-height: 180px; }
         .work-sample-video { width: 100%; height: 100%; display: block; object-fit: contain; background: #000; }
         .work-sample-iframe {
     width: 100%;
@@ -360,7 +366,7 @@
 
         .graphics-grid img { 
             width: 100%; 
-            height: 100%; 
+            height: auto; 
             aspect-ratio: 1 / 1; 
             object-fit: cover; 
             border-radius: 8px; 
@@ -477,26 +483,50 @@
 
             .hero-metrics { flex-wrap: wrap; gap: 1rem; justify-content: center; }
             .hero-profile-img { width: 100%; max-width: 100%; }
-            .showcase-container { direction: ltr; }
+            .showcase-container {
+                direction: ltr;
+                margin-bottom: 1.5rem;
+                gap: 1rem;
+                display: flex;
+                flex-direction: column;
+            }
             .showcase-text, .browser-mockup, .full-work-section {
                 width: 100%;
                 margin: 0 auto;
             }
             .browser-mockup {
-                min-height: auto;
+                min-height: 280px;
+                max-width: 100%;
             }
-            .work-video-wrapper { min-height: 220px; }
+            .browser-content {
+                height: auto;
+                padding: 0.75rem;
+            }
+            .work-video-wrapper {
+                min-height: 140px;
+                max-height: 220px;
+            }
             .graphics-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
-                padding: 1rem;
+                gap: 0.75rem;
+                padding: 0.75rem;
+            }
+            .graphics-grid img {
+                height: auto;
+                max-height: 180px;
             }
             .contact-info-panel, form { width: 100%; }
             .form-row { grid-template-columns: 1fr; }
             form { padding: 1.5rem; }
             .btn-header, button[type="submit"] { width: 100%; }
             .btn-header { display: none; }
-            section { padding: 6rem 4% 3rem; min-height: auto; }
+            section { padding: 5.5rem 4% 2rem; min-height: auto; justify-content: flex-start; }
             #hero { padding-top: 8rem; min-height: auto; }
+            #works {
+                padding-top: 4rem;
+                scroll-margin-top: 120px;
+            }
+            #works .section-title { margin-bottom: 1.5rem; }
         }
 
         @media (max-width: 560px) {
@@ -1003,6 +1033,17 @@
     const menu = document.getElementById('menu');
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
 
+    function scrollToSection(id) {
+        const target = document.getElementById(id);
+        if (!target) return;
+
+        const headerOffset = window.innerWidth <= 968 ? 140 : 110;
+        const top = Math.max(0, target.getBoundingClientRect().top + window.pageYOffset - headerOffset);
+        window.scrollTo({ top, behavior: 'auto' });
+        document.documentElement.scrollTop = top;
+        document.body.scrollTop = top;
+    }
+
     mobileMenuBtn.addEventListener('click', () => {
         const isOpen = menu.classList.toggle('open');
         mobileMenuBtn.classList.toggle('open', isOpen);
@@ -1010,7 +1051,17 @@
     });
 
     navLinks.forEach(link => {
-        link.addEventListener('click', () => {
+        link.addEventListener('click', (event) => {
+            const href = link.getAttribute('href');
+            if (href && href.startsWith('#')) {
+                event.preventDefault();
+                const sectionId = href.slice(1);
+                setTimeout(() => {
+                    scrollToSection(sectionId);
+                }, 0);
+                history.pushState(null, '', href);
+            }
+
             if (menu.classList.contains('open')) {
                 menu.classList.remove('open');
                 mobileMenuBtn.classList.remove('open');
@@ -1018,6 +1069,22 @@
             }
         });
     });
+
+    function handleInitialHash() {
+        if (!window.location.hash) return;
+        const id = window.location.hash.slice(1);
+        const target = document.getElementById(id);
+        if (!target) return;
+
+        requestAnimationFrame(() => {
+            setTimeout(() => {
+                scrollToSection(id);
+            }, 700);
+        });
+    }
+
+    window.addEventListener('load', handleInitialHash);
+    handleInitialHash();
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
