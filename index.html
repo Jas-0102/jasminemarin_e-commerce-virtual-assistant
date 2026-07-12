@@ -302,6 +302,13 @@
 
         .work-video-wrapper { width: 100%; max-width: 960px; background: #000; border-radius: 8px; overflow: hidden; position: relative; aspect-ratio: 16/9; height: 100%; }
         .work-sample-video { width: 100%; height: 100%; display: block; object-fit: contain; background: #000; }
+        .work-sample-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+    background: #000;
+}
         .work-cta { position: absolute; right: 14px; bottom: 14px; z-index: 6; display: inline-block; background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan)); color: #fff; padding: 0.5rem 0.9rem; border-radius: 999px; font-weight: 600; text-decoration: none; box-shadow: 0 6px 18px rgba(6,182,212,0.12); transition: transform 0.15s ease, box-shadow 0.15s ease; }
         .work-cta:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(6,182,212,0.18); }
         
@@ -786,9 +793,12 @@ nav.open {
                     
                     <!-- Video 2 -->
                     <div class="work-video-wrapper">
-                        <video autoplay loop muted playsinline controls preload="metadata" class="work-sample-video">
-                            <source src="FORTIQUIP STORE (NEW VERSION) - VIDEO DEMO .mp4" type="video/mp4">
-                        </video>
+                        <iframe 
+        src="https://drive.google.com/file/d/1SMSg3M3Y8QDPmfUCSavT9uzcEY2UhiBj/preview" 
+        class="work-sample-iframe" 
+        allow="autoplay" 
+        allowfullscreen>
+    </iframe>
                     </div>
                 </div>
             </div>
