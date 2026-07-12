@@ -419,6 +419,7 @@
             }
 
             nav {
+                display: flex;
                 position: fixed;
                 top: 76px;
                 right: 16px;
@@ -438,103 +439,87 @@
                 z-index: 110;
             }
 
-nav.open {
+            nav.open {
                 transform: translateY(0) scale(1);
                 opacity: 1;
                 pointer-events: auto;
             }
 
-            nav {
-                display: flex; /* 👈 FIX: Required for flex-direction to work */
-                position: fixed;
-                top: 76px;
-                right: 16px;
-                width: calc(100% - 32px);
-                max-width: 320px;
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 1.5rem;
-                border-radius: 24px;
-                background: rgba(11, 9, 20, 0.96);
-                border: 1px solid rgba(255,255,255,0.08);
-                box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
-                transform: translateY(-20px) scale(0.95);
-                opacity: 0;
-                pointer-events: none;
-                transition: transform 0.25s ease, opacity 0.25s ease;
-                z-index: 110;
-            }
-
             nav a {
-                display: block; /* 👈 FIX: Makes links full-width and clickable */
+                display: block;
                 margin: 0 0 1rem 0;
                 font-size: 1rem;
                 width: 100%;
             }
-            @media (min-width: 1024px) {
-    body {
-        max-width: 1440px; /* Limits the content so it doesn't stretch too far */
-        margin: 0 auto;    /* Centers the entire site */
-    }
-}
 
-/* For Mobile: Stack items vertically */
-@media (max-width: 768px) {
-    .showcase-container {
-        grid-template-columns: 1fr; /* Stacks everything in one column */
-        gap: 2rem;
-    }
-    
-    .showcase-text, .browser-mockup {
-        width: 90%; /* Leaves a little breathing room on the sides */
-        margin: 0 auto;
-    }
-}
-            .hero-content h1 { font-size: 2.7rem; }
+            .hero-content {
+                text-align: center;
+            }
 
+            .hero-content h1 { font-size: 2.4rem; line-height: 1.15; }
             .hero-content p,
             .showcase-text p,
             .meta-subtext,
             .reason-mini-card p,
             .matrix-desc,
             .matrix-list li,
-            .tools-category-card,
             .tool-item,
             .input-group label,
             .info-card p {
                 font-size: 0.95rem;
             }
 
-            .section-title { font-size: 2.3rem; }
+            .section-title { font-size: 2.1rem; margin-bottom: 2rem; }
             #hero, .strengths-container, .showcase-container, #contact-grid, .showcase-container.centered-full {
                 grid-template-columns: 1fr;
                 gap: 2rem;
             }
 
-            .hero-metrics { flex-wrap: wrap; gap: 1rem; }
+            .hero-metrics { flex-wrap: wrap; gap: 1rem; justify-content: center; }
             .hero-profile-img { width: 100%; max-width: 100%; }
             .showcase-container { direction: ltr; }
-        img, .browser-mockup, .showcase-container {
-    max-width: 100%;
-    height: auto;
-}
-            .work-video-wrapper { min-height: auto; }
-            
-            .graphics-grid {
-                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            .showcase-text, .browser-mockup, .full-work-section {
+                width: 100%;
+                margin: 0 auto;
             }
-
+            .browser-mockup {
+                min-height: auto;
+            }
+            .work-video-wrapper { min-height: 220px; }
+            .graphics-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                padding: 1rem;
+            }
             .contact-info-panel, form { width: 100%; }
             .form-row { grid-template-columns: 1fr; }
-            form { padding: 2rem; }
-            
-            button[type="submit"], .btn-header { width: 100%; }
-            
-            /* Hide header button on mobile so it doesn't overlap the hamburger menu */
+            form { padding: 1.5rem; }
+            .btn-header, button[type="submit"] { width: 100%; }
             .btn-header { display: none; }
+            section { padding: 6rem 4% 3rem; min-height: auto; }
+            #hero { padding-top: 8rem; min-height: auto; }
+        }
 
-            section { padding: 6rem 4% 3rem; }
-            #hero { padding-top: 8rem; }
+        @media (max-width: 560px) {
+            .hero-content h1 { font-size: 2rem; }
+            .hero-content h2 { font-size: 0.95rem; letter-spacing: 2px; }
+            .section-title { font-size: 1.8rem; }
+            .hero-metrics {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            .graphics-grid {
+                grid-template-columns: 1fr;
+            }
+            .reason-mini-card,
+            .meta-box-panel,
+            .matrix-box,
+            .tools-category-card {
+                padding: 1.4rem;
+            }
+            .product-list-style {
+                padding: 1rem !important;
+            }
         }
 
     </style>
