@@ -471,7 +471,25 @@ nav.open {
                 font-size: 1rem;
                 width: 100%;
             }
+            @media (min-width: 1024px) {
+    body {
+        max-width: 1440px; /* Limits the content so it doesn't stretch too far */
+        margin: 0 auto;    /* Centers the entire site */
+    }
+}
 
+/* For Mobile: Stack items vertically */
+@media (max-width: 768px) {
+    .showcase-container {
+        grid-template-columns: 1fr; /* Stacks everything in one column */
+        gap: 2rem;
+    }
+    
+    .showcase-text, .browser-mockup {
+        width: 90%; /* Leaves a little breathing room on the sides */
+        margin: 0 auto;
+    }
+}
             .hero-content h1 { font-size: 2.7rem; }
 
             .hero-content p,
@@ -496,8 +514,10 @@ nav.open {
             .hero-metrics { flex-wrap: wrap; gap: 1rem; }
             .hero-profile-img { width: 100%; max-width: 100%; }
             .showcase-container { direction: ltr; }
-            .browser-mockup { min-height: auto; }
-            .browser-content { padding: 1rem; }
+        img, .browser-mockup, .showcase-container {
+    max-width: 100%;
+    height: auto;
+}
             .work-video-wrapper { min-height: auto; }
             
             .graphics-grid {
@@ -516,6 +536,7 @@ nav.open {
             section { padding: 6rem 4% 3rem; }
             #hero { padding-top: 8rem; }
         }
+
     </style>
 </head>
 <body>
