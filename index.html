@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -299,6 +300,41 @@
         
         /* New Stacked modifier for multiple videos */
         .browser-content.stacked { flex-direction: column; gap: 1.5rem; padding: 1.5rem; }
+      .full-work-section {
+    width: 100%;
+    max-width: 1100px; /* Increase this to make the whole section wider */
+    margin: 4rem auto;
+    text-align: center;
+    padding: 0 20px;
+}
+
+/* Header text styling */
+.work-header-text {
+    margin-bottom: 3rem;
+}
+
+/* Wide version of your mockup box */
+.wide-mockup {
+    width: 100%;
+    margin-bottom: 2rem;
+    /* This ensures it isn't squeezed by side-bar elements */
+}
+
+/* Force the content to be flexible */
+.product-list-style {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2rem !important;
+    height: auto !important;
+}
+
+.product-list-style img {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid var(--glass-border);
+}
+
 
         .work-video-wrapper { width: 100%; max-width: 960px; background: #000; border-radius: 8px; overflow: hidden; position: relative; aspect-ratio: 16/9; height: 100%; }
         .work-sample-video { width: 100%; height: 100%; display: block; object-fit: contain; background: #000; }
@@ -356,6 +392,7 @@
         .showcase-container.centered-full .hero-metrics {
             justify-content: center;
         }
+
         
         /* Contact Section */
         #contact-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 4rem; }
@@ -869,6 +906,42 @@ nav.open {
         </div>
     </section>
 
+<section id="product-listings" class="full-work-section">
+    
+<div class="showcase-text">
+    <center><h3>Product Listing Samples</h3></center>
+   <center> <p>A collection of my optimized product listings with SEO-friendly titles and descriptions. I ensure every listing is clear, accurate, and optimized for search visibility to help customers browse and buy with confidence.</p> </center>
+    
+    <div class="hero-metrics" style="gap: 3rem; justify-content: center;">
+        <div class="metric-item">
+            <h3 style="font-size: 1.3rem; margin-bottom: 0.2rem;">Shopify</h3>
+            <p style="font-size: 0.8rem; letter-spacing: 1px; color: var(--text-muted);">PLATFORM</p>
+        </div>
+        <div class="metric-item">
+            <h3 style="font-size: 1.3rem; margin-bottom: 0.2rem;">SEO/UX</h3>
+            <p style="font-size: 0.8rem; letter-spacing: 1px; color: var(--text-muted);">OPTIMIZATION</p>
+        </div>
+    </div>
+</div>
+
+    <div class="browser-mockup wide-mockup">
+        <div class="browser-header">
+            <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+        <div class="browser-content product-list-style">
+            <img src="product listing/listing.png" alt="Listing Proof">
+            <img src="product listing/Masterlist.png" alt="Listing Proof">
+        </div>
+         <a href="https://docs.google.com/spreadsheets/d/1OtA8jSPgUvOPwI538gvqqSLmba29SclN7jsthvLgIM8/edit?usp=sharing" 
+       target="_blank" 
+       class="work-cta" 
+       style="display: inline-block; margin-top: 1rem;">
+        View Spreadsheet
+    </a>
+    </div>
+</div>
+</section>
+
     <!-- Contact Form -->
     <section id="contact" class="reveal">
         <div class="section-tag">Let's Connect</div>
@@ -890,71 +963,111 @@ nav.open {
                 </div>
             </div>
 
-            <form id="lead-form" action="https://formspree.io/f/xwvgepog" method="POST">
-                <div class="form-row">
-                    <div class="input-group">
-                        <label>Your Name</label>
-                        <input type="text" name="name" placeholder="Alex" required>
-                    </div>
-                    <div class="input-group">
-                        <label>Your Email</label>
-                        <input type="email" name="email" placeholder="alex@yourbrand.com" required>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label>How can I help you?</label>
-                    <input type="text" name="subject" placeholder="Shopify Store Help / Customer Support Setup" required>
-                </div>
-                <div class="input-group">
-                    <label>Tell me a little about your store</label>
-                    <textarea rows="5" name="message" placeholder="Let me know what daily tasks are currently taking up too much of your time..." required></textarea>
-                </div>
-                <button type="submit">Send Message</button>
-            </form>
+<form id="lead-form" action="https://formspree.io/f/xwvgepog" method="POST">
+    <div class="form-row">
+        <div class="input-group">
+            <label>Your Name</label>
+            <input type="text" name="name" placeholder="Alex" required>
+        </div>
+        <div class="input-group">
+            <label>Your Email</label>
+            <input type="email" name="email" placeholder="alex@yourbrand.com" required>
+        </div>
+    </div>
+    <div class="input-group">
+        <label>How can I help you?</label>
+        <input type="text" name="subject" placeholder="Shopify Store Help / Customer Support Setup" required>
+    </div>
+    <div class="input-group">
+        <label>Tell me a little about your store</label>
+        <textarea rows="5" name="message" placeholder="Let me know what daily tasks are currently taking up too much of your time..." required></textarea>
+    </div>
+    
+    <button type="submit" id="submit-btn">Send Message</button>
+    <p id="form-status" style="text-align: center; margin-top: 1rem;"></p>
+</form>
         </div>
     </section>
 
-    <script>
-        const revealElements = document.querySelectorAll('.reveal');
-        const navLinks = document.querySelectorAll('nav a');
-        const sections = document.querySelectorAll('section');
-        const menu = document.getElementById('menu');
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+ <script>
+    // --- Navigation & Reveal Logic ---
+    const revealElements = document.querySelectorAll('.reveal');
+    const navLinks = document.querySelectorAll('nav a');
+    const sections = document.querySelectorAll('section');
+    const menu = document.getElementById('menu');
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
 
-        mobileMenuBtn.addEventListener('click', () => {
-            const isOpen = menu.classList.toggle('open');
-            mobileMenuBtn.classList.toggle('open', isOpen);
-            mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
+    mobileMenuBtn.addEventListener('click', () => {
+        const isOpen = menu.classList.toggle('open');
+        mobileMenuBtn.classList.toggle('open', isOpen);
+        mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (menu.classList.contains('open')) {
+                menu.classList.remove('open');
+                mobileMenuBtn.classList.remove('open');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+            }
         });
+    });
 
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                if (menu.classList.contains('open')) {
-                    menu.classList.remove('open');
-                    mobileMenuBtn.classList.remove('open');
-                    mobileMenuBtn.setAttribute('aria-expanded', 'false');
-                }
-            });
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                const id = entry.target.getAttribute('id');
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${id}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
         });
+    }, { threshold: 0.15 });
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    
-                    const id = entry.target.getAttribute('id');
-                    navLinks.forEach(link => {
-                        link.classList.remove('active');
-                        if (link.getAttribute('href') === `#${id}`) {
-                            link.classList.add('active');
-                        }
-                    });
-                }
+    revealElements.forEach(el => observer.observe(el));
+    sections.forEach(sec => observer.observe(sec));
+
+    // --- Formspree Ajax Logic ---
+    const form = document.getElementById("lead-form");
+    const status = document.getElementById("form-status");
+    const btn = document.getElementById("submit-btn");
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+        btn.textContent = "Sending...";
+        btn.disabled = true;
+        
+        const data = new FormData(event.target);
+        
+        try {
+            const response = await fetch(event.target.action, {
+                method: form.method,
+                body: data,
+                headers: { 'Accept': 'application/json' }
             });
-        }, { threshold: 0.15 });
-
-        revealElements.forEach(el => observer.observe(el));
-        sections.forEach(sec => observer.observe(sec));
-    </script>
+            
+            if (response.ok) {
+                status.style.color = "var(--accent-cyan)";
+                status.textContent = "Message successfully sent!";
+                form.reset();
+            } else {
+                status.style.color = "red";
+                status.textContent = "Oops! Something went wrong.";
+            }
+        } catch (error) {
+            status.style.color = "red";
+            status.textContent = "Connection error. Please try again.";
+        } finally {
+            btn.textContent = "Send Message";
+            btn.disabled = false;
+        }
+    }
+    
+    form.addEventListener("submit", handleSubmit);
+</script>
 </body>
 </html>
